@@ -5,6 +5,7 @@ import com.badlogic.gdx.assets.loaders.ModelLoader;
 import com.badlogic.gdx.assets.loaders.ModelLoader.ModelParameters;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g3d.Model;
+import com.badlogic.gdx.graphics.g3d.attributes.TextureAttribute;
 import com.badlogic.gdx.graphics.g3d.loader.G3dModelLoader;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.UBJsonReader;
@@ -13,6 +14,8 @@ public class Player {
 	
 	public static final int IDLE   = 0;
 	public static final int ATTACK = 1;
+	
+	private int       vida;
 	
 	public int        estado;
 	public GameObject personagem[];
@@ -31,6 +34,7 @@ public class Player {
 		model = loader.loadModel(Gdx.files.internal("player/kick_a.g3db"));
 		personagem[ATTACK] = new GameObject(model);
 		
+		vida = 10;
 		estado = IDLE;
 		
 		if (mode == 1){ // player 1
@@ -58,17 +62,51 @@ public class Player {
 	
 	public void update(float delta){
 		personagem[estado].update(delta);
+		if (estado == ATTACK){
+			if (personagem[estado].isFinished()){
+				personagem[estado].resetAnimation();
+				estado = IDLE;
+			}
+		}
 	}
 	
 	public void chutar(){
 		estado = ATTACK;
 	}
+	
 	public void idle(){
 		estado = IDLE;
 	}
 	
 	public void nextSkin(){
-		
+		currentSkin = (currentSkin+1)%skins.length;
+		for (GameObject g: personagem){
+			TextureAttribute text = new TextureAttribute(TextureAttribute.createDiffuse(skins[currentSkin]));
+			g.materials.get(0).set(text);
+				
+		}
+	}
+	
+	public int getVida(){
+		return this.vida;
+	}
+	
+	public void andarPraFrente(){
+		for (GameObject g: personagem){
+		   g.transform.translate(0, 0, 0.25f);
+		}
+	}
+	public void andarPraTras(){
+		for (GameObject g: personagem){
+			g.transform.translate(0,0,-0.25f);
+		}
+	}
+	
+	public void tomouPorradaForte(){
+		vida -= 2;
+	}
+	public void tomouPorradaFraca(){
+		vida -=1;
 	}
 	
 }
