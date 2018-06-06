@@ -8,4 +8,4 @@ Cada participante pode criar sua própria Skin do personagem para inclui-lo no j
 
 ### Quer fazer parte?
 
-Entre em contato pela Fan Page do [Prof. Isidro] (http://www.facebook.com/professorisidro) ou siga no Twitter [Prof. Isidro] (http://www.twitter.com/fmassetto)
+Entre em contato pela Fan Page do [Prof. Isidro] (http://www.facebook.com/professorisidro) ou siga no Twitter [Prof. Isidro] (http://www.twitter.com/prof_isidro)
